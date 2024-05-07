@@ -1,0 +1,123 @@
+{% extends "rooms/base.html" %}
+{% load static %}
+
+
+{% block content %}
+	<main>
+
+
+		<section class="container-xxl">
+			{% if room_booked %}
+
+			<div class="reserv-none">
+				<div class="res_title">
+					Выбранный вами номер к сожалению занят
+				</div>
+				<div class="rooms_top_row">
+					<div class="discr">
+						<h1>Вы можете подобрать другой</h1>
+					</div>
+					<a href="{% url "rooms:index" %}" class="view__btm">
+						<h1>Смотреть</h1>
+					</a>
+				</div>
+			</div>
+
+			{% elif not start_date or not end_date %}
+			<div class="reserv-none">
+				<div class="res_title">
+					Вы не выбрали даты
+				</div>
+				<div class="rooms_top_row">
+					<div class="discr">
+						<h1>Пожалуйста введите дату</h1>
+					</div>
+					<a href="{% url "rooms:index" %}" class="view__btm">
+						<h1>Смотреть</h1>
+					</a>
+				</div>
+			</div>
+			{% else %}
+
+			<div class="reserv">
+				<div class="res_title">
+					Бронирование
+				</div>
+
+				
+				<div class="container" style="width: 40rem;">
+					{% comment %} <img src="{% static "img/rooms/room1.png" %}" class="card-img-top" alt="..."> {% endcomment %}
+					{% if room.image %}
+					<img src="{{ room.image.url }}" class="img-fluid" alt="{{ room.name }}" />
+				  	{% else %}
+					<img src="{% static 'img/rooms/default.png' %}" class="img-fluid" alt="Default Image" />
+				  	{% endif %}
+					<div class="card-body">
+						<h5 class="card-title-order">{{ room.name }}</h5>
+						<p class="card-text-order">{{ room.description|truncatewords:25 }}</p>
+						<p class="card-text-order card-price">{{ room.price }} руб.</p>
+						<div class="card mb-3">
+							<div class="card-body-order">
+								<form class="order-form" action="" method="post">
+									{% csrf_token %}
+									<div class="row">
+										<div class="input-daterange input-group" id="datepicker2">
+											<div class="col-md-6 mb-3">
+												<label for="id_start_date" class="form-label">Дата заезда:</label>
+												<input type="text" class="form-control" id="id_start_date" name="start_date" value="{{ start_date }}" required>
+											</div>
+											<div class="col-md-6 mb-3">
+												<label for="id_end_date" class="form-label">Дата выезда:</label>
+												<input type="text" class="form-control" id="id_end_date" name="end_date" value="{{ end_date }}" required>
+											</div>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label for="id_first_name" class="form-label">Имя*:</label>
+											<input type="text" class="form-control" id="id_first_name"
+												name="first_name" required>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label for="id_last_name" class="form-label">Фамилия*:</label>
+											<input type="text" class="form-control" id="id_last_name" name="last_name" required>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label for="id_passport_number" class="form-label">Номер паспорта*:</label>
+											<input type="text" class="form-control" id="id_passport_number" name="passport_number"
+												placeholder="В формате: XX XX XXXXXX"
+												required>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label for="id_phone_number" class="form-label">Номер телефона*:</label>
+											<input type="text" class="form-control" id="id_phone_number" name="phone_number"
+												placeholder="В формате: XXX-XXX-XX-XX"
+												required>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label for="id_arrival_city" class="form-label">Город прибытия*:</label>
+											<input type="text" class="form-control" id="id_arrival_city" name="arrival_city"
+												required>
+										</div>
+									
+									</div>
+									<button type="submit" class="btn-order btn btn-dark">Оформить заказ</button>
+								</form>
+							</div>
+						</div>
+
+						
+					</div>
+				</div>
+
+			</div>
+			{% endif %}
+
+
+
+
+		</section>
+
+
+	</main>
+
+
+	{% endblock content %}

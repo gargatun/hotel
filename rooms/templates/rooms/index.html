@@ -1,0 +1,177 @@
+{% extends 'rooms/base.html' %}
+{% load static %}
+
+{% block content %}
+  <main>
+    <section class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="rounded-div">
+          <img class="main_img" src="{% static 'img/house.png' %}" alt="Your Image" />
+          <div class="title row position-absolute">
+            <h1>Найдите свое <br />идеальное место</h1>
+          </div>
+          <form class="reservation col-12 col-lg-8 col-sm-10" action="{% url 'rooms:rooms' %}" method="get">
+            <div class="row align-items-center">
+              <div class="date-form col-6">
+                <div class="form-group">
+                  <div class="input-daterange input-group" id="datepicker">
+                    <div class="row">
+                      <div class="check-in col-6">
+                        <div class="label-container">
+                          <img class="icon" src="{% static 'img/calendar.png' %}" alt="icon" />
+                          <label for="start">Заезд</label>
+                        </div>
+                        <input type="text" class="form-control" name="start" placeholder="Выберите дату" />
+                      </div>
+                      <div class="col-6 text-center">
+                        <div class="label-container">
+                          <img class="icon" src="{% static 'img/calendar.png' %}" alt="icon" />
+                          <label for="end">Выезд</label>
+                        </div>
+                        <input type="text" class="form-control" name="end" placeholder="Выберите дату" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="line_between col-1">
+                <img src="{% static 'img\Line.png' %}" alt="..." />
+              </div>
+
+              <div class="dropdown col-3 d-flex justify-content-center">
+                <div class="btn btn-outline-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img class="icon_guests" src="{% static 'img/man.png' %}" alt="Your Icon" style="margin-right: 5px;" />
+                  Кол-во гостей
+                </div>
+                <ul class="dropdown-menu">
+                  <li>
+                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault1" value="1" checked />
+                    <label class="form-check-label" for="flexRadioDefault1">1 гость</label>
+                  </li>
+                  <li>
+                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault2" value="2" />
+                    <label class="form-check-label" for="flexRadioDefault2">2 гостя</label>
+                  </li>
+                  <li>
+                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault3" value="3" />
+                    <label class="form-check-label" for="flexRadioDefault3">3 гостя</label>
+                  </li>
+                </ul>
+              </div>
+              <button id="submitDateRange" class="btn btn-primary mt-3 col-2" type="submit">Поиск</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="container-xxl">
+      <div class="rooms">
+        <div class="rooms__title">Наши Номера</div>
+        <div class="rooms_top_row">
+          <div class="discr">
+            <h1>Подберите номер под ваши предпочтения</h1>
+          </div>
+          <a href="{% url 'rooms:rooms' %}" class="view__btm"><h1>Еще</h1></a>
+        </div>
+
+        {% comment %}
+        <div class="row">
+          <div class="col">
+            <div class="card" style="width: 25rem;">
+              <img src="{% static 'img/rooms/room1.png' %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Заголовок карточки</h5>
+                <p class="card-text">Небольшой пример текста, который должен основываться на названии карточки и составлять основную часть содержимого карты.</p>
+                <p class="card-text card-price">цена руб.</p>
+
+                <button class="btn-card btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Перейти куда-нибудь</button>
+              </div>
+            </div>
+          </div>
+        </div> {% endcomment %}
+
+        <div class="row">
+          {% for room in rooms %}
+            <div class="col">
+              <div class="card" style="width: 25rem;">
+                {% if room.image %}
+                  <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.name }}" />
+                {% else %}
+                  <img src="{% static 'img/rooms/default.png' %}" class="card-img-top" alt="Default Image" />
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ room.name }}</h5>
+                  <p class="card-text">{{ room.description|truncatewords:25 }}</p>
+                  <p class="card-text card-price">{{ room.price }} руб.</p>
+                  <button class="btn-card btn btn-primary" data-bs-target="#exampleModalToggle{{ room.id }}" data-bs-toggle="modal">Перейти куда-нибудь</button>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p>Нет доступных номеров.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% for room in rooms %}
+        <div class="modal fade" id="exampleModalToggle{{ room.id }}" aria-labelledby="exampleModalToggleLabel{{ room.id }}" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel{{ room.id }}">{{ room.name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    {% if room.image %}
+                      <img src="{{ room.image.url }}" class="img-fluid" alt="{{ room.name }}" />
+                    {% else %}
+                      <img src="{% static 'img/rooms/default.png' %}" class="img-fluid" alt="Default Image" />
+                    {% endif %}
+                  </div>
+                  <div class="model-disc col-md-6">
+                    <h2>{{ room.name }}</h2>
+                    <p>{{ room.description }}</p>
+                    <p class="card-text card-price">Цена: {{ room.price }} руб.</p>
+                    <div class="row align-items-center">
+                      <form class="reservation-modal col-12" action="{% url 'reservation:reservation' %}" method="get">
+                        <input type="hidden" name="room_id" value="{{ room.id }}">
+                        <div class="date-form col-10">
+                          <div class="form-group">
+                            <div class="input-daterange input-group" id="datepicker{{ room.id }}">
+                              <div class="row">
+                                <div class="check-in col-6">
+                                  <div class="label-container">
+                                    <label for="start{{ room.id }}">Заезд</label>
+                                  </div>
+                                  <input type="text" class="form-control" name="start" id="start{{ room.id }}" placeholder="Выберите дату" />
+                                </div>
+                                <div class="col-6 text-center">
+                                  <div class="label-container">
+                                    <label for="end{{ room.id }}">Выезд</label>
+                                  </div>
+                                  <input type="text" class="form-control" name="end" id="end{{ room.id }}" placeholder="Выберите дату" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary mt-3 col-12" type="submit">Поиск</button>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a href="{% url 'rooms:rooms' %}"><button class="btn-room btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Перейти ко всем</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+  </main>
+{% endblock %}

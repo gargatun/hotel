@@ -1,0 +1,32 @@
+{% extends "rooms/base.html" %}
+{% load static %}
+
+
+{% block content %}
+	<main>
+
+
+		<section class="container-xxl">
+
+			<div class="reserv-none">
+				<div class="res_title">
+					Выбранный вами номер к сожалению занят
+				</div>
+				<div class="rooms_top_row">
+					<div class="discr">
+						<h1>Вы можете подобрать другой</h1>
+					</div>
+					<a href="{% url "rooms:index" %}" class="view__btm">
+						<h1>Смотреть</h1>
+					</a>
+				</div>
+			</div>
+
+			
+		</section>
+
+
+	</main>
+
+
+{% endblock content %}
