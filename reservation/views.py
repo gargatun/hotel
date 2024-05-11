@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Room
 from .models import Guest, Booking, Room
@@ -89,7 +90,8 @@ def reservation(request):
         )
         booking.save()
 
-        return redirect('rooms:index')  # Перенаправляем на подтверждение бронирования или другую страницу
+        # messages.success(request, 'Бронирование успешно создано.')
+        return redirect('reservation:reservation_confirmation')  # Use the namespace
 
     context = {
         'room': room,
@@ -97,3 +99,8 @@ def reservation(request):
         'end_date': end_date
     }
     return render(request, 'reservation/reservation.html', context)
+
+
+def reservation_confirmation(request):
+    # Here you can add context or session data to show on the confirmation page if needed
+    return render(request, 'reservation/confirmation.html')

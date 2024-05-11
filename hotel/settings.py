@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 	'employee.apps.EmployeeConfig',
 	
     "debug_toolbar",
+	
+    'widget_tweaks',
+
 ]
 
 MIDDLEWARE = [

@@ -276,6 +276,12 @@ body {
   color: black;
 }
 
+.rooms__title1 {
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
 .rooms_top_row {
   display: flex;
   grid-template-columns: repeat(2, 1fr);
