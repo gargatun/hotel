@@ -5,6 +5,7 @@
 <main>
     <section class="container py-5">
         <!-- Card for Guests by City -->
+
         <div class="card mb-5">
             <div class="card-body">
                 <h1 class="mb-4 rooms__title">Гости по городам</h1>
@@ -87,7 +88,7 @@
                             <td>{{ booking.room.name }}</td>
                             <td>{{ booking.room.floor }}</td>
                             <td>{{ booking.check_in|date:"Y-m-d" }}</td>
-                            <td>{{ booking.check_out|date:"Y-m-d" }}</-td>
+                            <td>{{ booking.check_out|date:"Y-m-d" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -103,6 +104,9 @@
                     <h5>Общая сумма, уплаченная клиентами: {{ total_paid }} руб.</h5>
                 </div>
             </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'employee:logout' %}" class="btn btn-danger">Выйти</a>
+            {% endif %} 
         </div>
         
 

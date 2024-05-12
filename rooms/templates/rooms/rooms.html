@@ -14,10 +14,17 @@
           <div class="dropdown">
             <button type="button" class="btn btn-primary btn-filter dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Фильтры</button>
             <form class="dropdown-menu p-4" action="{% url 'rooms:rooms' %}">
+              <!-- Скрытые поля для сохранения текущих параметров запроса -->
+              {% for key, value in request.GET.items %}
+                {% if key != 'order_by' and key != 'room_type' %}
+                  <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endif %}
+              {% endfor %}
+          
               <p class="text-fltr">Сортировать:</p>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" {% if order_by == 'default' %}checked{% endif %}/>
-                <label class="form-check-label" for="flexRadioDefault1">По умолчанию</label>
+                <label class="form-check-label" for="flexEnterRadioDefault1">По умолчанию</label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" {% if order_by == 'price' %}checked{% endif %}/>
@@ -37,7 +44,6 @@
               <button type="submit" class="btn btn-filter btn-primary">Применить</button>
             </form>
           </div>
-
         </div>
 
         <div class="row">

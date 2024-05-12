@@ -35,27 +35,26 @@
                 </div>
               </div>
               <div class="line_between col-1">
-                <img src="{% static 'img\Line.png' %}" alt="..." />
+                <img src="{% static 'img/Line.png' %}" alt="..." />
               </div>
-
+          
               <div class="dropdown col-3 d-flex justify-content-center">
                 <div class="btn btn-outline-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
                   <img class="icon_guests" src="{% static 'img/man.png' %}" alt="Your Icon" style="margin-right: 5px;" />
-                  Кол-во гостей
+                  Тип номера
                 </div>
                 <ul class="dropdown-menu">
                   <li>
-                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault1" value="1" checked />
-                    <label class="form-check-label" for="flexRadioDefault1">1 гость</label>
+                    <input class="form-check-input" type="radio" name="room_type" id="typeSingle" value="single" checked />
+                    <label class="form-check-label" for="typeSingle">1 гость</label>
                   </li>
                   <li>
-                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault2" value="2" />
-                    <label class="form-check-label" for="flexRadioDefault2">2 гостя</label>
+                    <input class="form-check-input" type="radio" name="room_type" id="typeDouble" value="double" />
+                    <label class="form-check-label" for="typeDouble">2 гостя</label>
                   </li>
                   <li>
-                    <input class="form-check-input" type="radio" name="guests" id="flexRadioDefault3" value="3" />
-                    <label class="form-check-label" for="flexRadioDefault3">3 гостя</label>
-                  </li>
+                    <input class="form-check-input" type="radio" name="room_type" id="typeTriple" value="triple" />
+                    <label class="form-check-label" for="typeTriple">3 гостя</li>
                 </ul>
               </div>
               <button id="submitDateRange" class="btn btn-primary mt-3 col-2" type="submit">Поиск</button>
