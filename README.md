@@ -40,13 +40,13 @@
 ## Диаграммы
 
 ### ERD (Диаграмма сущностей и связей)
-![ERD Диаграмма](review/bd.png)
+![ERD Диаграмма](review/erd.png)
 
 ### Диаграмма потоков данных (DFD)
 ![Диаграмма потоков данных](review/dfd.png)
 
 ### Use Case Диаграмма
-![Use Case Диаграмма](review/use_case_diagram.png.png)
+![Use Case Диаграмма](review/use_case_diagram.png)
 
 
 ## Процесс разработки
